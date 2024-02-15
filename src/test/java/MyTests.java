@@ -42,7 +42,7 @@ public class MyTests {
         g1.addEdge("F", "H", 11);
         g1.addEdge("G", "H", 2);
 
-        assertEquals(expected, g1.dijkstra("A"));
+        assertTrue(mapsAreEqual(expected, g1.dijkstra("A")));
     }
 
     @Test
@@ -75,7 +75,7 @@ public class MyTests {
         g2.addEdge("F", "G", 1);
         g2.addEdge("G", "H", 1);
 
-        assertEquals(expected, g2.dijkstra("A"));
+        assertTrue(mapsAreEqual(expected, g2.dijkstra("A")));
     }
 
     @Test
@@ -109,6 +109,27 @@ public class MyTests {
         g3.addEdge("E", "F", 5);
         g3.addEdge("G", "H", 10);
 
-        assertEquals(expected, g3.dijkstra("A"));
+        assertTrue(mapsAreEqual(expected, g3.dijkstra("A")));
+    }
+
+    public boolean mapsAreEqual(HashMap<String, Integer> mapA, HashMap<String, Integer> mapB) {
+
+        try{
+            for (String k : mapB.keySet())
+            {
+                if (!mapA.get(k).equals(mapB.get(k))) {
+                    return false;
+                }
+            }
+            for (String y : mapA.keySet())
+            {
+                if (!mapB.containsKey(y)) {
+                    return false;
+                }
+            }
+        } catch (NullPointerException np) {
+            return false;
+        }
+        return true;
     }
 }
