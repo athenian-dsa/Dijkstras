@@ -10,8 +10,7 @@ public class DijkstraEdge implements Comparable<DijkstraEdge> {
     }
 
     public boolean equals(Object other) {
-        if (other instanceof DijkstraEdge) {
-            DijkstraEdge otherEdge = (DijkstraEdge) other;
+        if (other instanceof DijkstraEdge otherEdge) {
             return this.source.equals(otherEdge.source) && this.destination.equals(otherEdge.destination) ||
                     this.source.equals(otherEdge.destination) && this.destination.equals(otherEdge.source);
         }

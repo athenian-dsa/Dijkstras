@@ -7,81 +7,19 @@ public class DijkstraGraph {
         vertices = new HashMap<>();
     }
 
-    // Adds a vertex to the graph
-    public void addVertex(String label) {
-        // Check vertex doesn't already exist before adding it
-        if (!vertices.containsKey(label)) {
-            WeightedVertex v1 = new WeightedVertex(label);
-            vertices.put(label, v1);
-        }
-    }
-
-    // Adds an edge to the graph
-    public void addEdge(String label1, String label2, int weight) {
-        // Check vertices exist before adding an edge between them
-        if (vertices.containsKey(label1) && vertices.containsKey(label2)) {
-            WeightedVertex v1 = vertices.get(label1);
-            WeightedVertex v2 = vertices.get(label2);
-
-            v1.edges.add(new DijkstraEdge(v1, v2, weight));
-            v2.edges.add(new DijkstraEdge(v2, v1, weight));
-        }
-    }
-
-    // Removes a vertex from the graph
-    public void removeVertex(String label) {
-        // Check vertex exists before removing it
-        if (vertices.containsKey(label)) {
-            WeightedVertex v1 = vertices.get(label);
-
-            // Remove all edges to this vertex
-            for (DijkstraEdge edge1: v1.edges) {
-                WeightedVertex v2 = edge1.destination;
-
-                // Look through v2 edges for edge to this
-                for (DijkstraEdge edge2: v2.edges) {
-                    if (edge2.destination.equals(v1)) {
-                        v2.edges.remove(edge2);
-                    }
-                }
-            }
-
-            v1.edges.clear();
-            vertices.remove(label);
-        }
-    }
-
-    // Removes an edge from the graph
-    public void removeEdge(String label1, String label2) {
-        // Check vertices exist before removing an edge between them
-        if (vertices.containsKey(label1) && vertices.containsKey(label2)) {
-            WeightedVertex v1 = vertices.get(label1);
-            WeightedVertex v2 = vertices.get(label2);
-
-            for (DijkstraEdge edge1: v1.edges) {
-                if (edge1.destination.equals(v2)) {
-                    v1.edges.remove(edge1);
-                }
-            }
-
-            for (DijkstraEdge edge2: v2.edges) {
-                if (edge2.destination.equals(v1)) {
-                    v2.edges.remove(edge2);
-                }
-            }
-
-        }
-    }
-
-
     // This method carries out Dijkstra's algorithm
-    // The algorithm returns a HashMap for the distances to each node
-    public HashMap<String, Integer> dijkstra(String source) {
+    // The algorithm returns a HashMap containing the distances calculated
+    // along the way. The distance to destination is guaranteed to be minimal,
+    // although other distances may not be (but are included so that the tests can
+    // ensure you implemented the algorithm efficiently).
+    // If the destination is not found, the map of distances to all nodes reachable
+    // from source should be returned.
+    public HashMap<String, Integer> dijkstra(String source, String destination) {
         // YOUR CODE HERE
         return null;
     }
 
-    // Prints out the graph
+    // Prints out the graph. May be useful for debugging.
     public void printGraph() {
         int longest = 7;
         for (String str: vertices.keySet()) {
@@ -123,7 +61,24 @@ public class DijkstraGraph {
         }
     }
 
-    public static void main(String[] args) {
+    // Adds a vertex to the graph
+    public void addVertex(String label) {
+        // Check vertex doesn't already exist before adding it
+        if (!vertices.containsKey(label)) {
+            WeightedVertex v1 = new WeightedVertex(label);
+            vertices.put(label, v1);
+        }
+    }
 
+    // Adds an edge to the graph
+    public void addEdge(String label1, String label2, int weight) {
+        // Check vertices exist before adding an edge between them
+        if (vertices.containsKey(label1) && vertices.containsKey(label2)) {
+            WeightedVertex v1 = vertices.get(label1);
+            WeightedVertex v2 = vertices.get(label2);
+
+            v1.edges.add(new DijkstraEdge(v1, v2, weight));
+            v2.edges.add(new DijkstraEdge(v2, v1, weight));
+        }
     }
 }

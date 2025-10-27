@@ -42,7 +42,7 @@ public class MyTests {
         g1.addEdge("F", "H", 11);
         g1.addEdge("G", "H", 2);
 
-        assertTrue(mapsAreEqual(expected, g1.dijkstra("A")));
+        assertTrue(mapsAreEqual(expected, g1.dijkstra("A", null)));
     }
 
     @Test
@@ -75,7 +75,7 @@ public class MyTests {
         g2.addEdge("F", "G", 1);
         g2.addEdge("G", "H", 1);
 
-        assertTrue(mapsAreEqual(expected, g2.dijkstra("A")));
+        assertTrue(mapsAreEqual(expected, g2.dijkstra("A", null)));
     }
 
     @Test
@@ -109,7 +109,41 @@ public class MyTests {
         g3.addEdge("E", "F", 5);
         g3.addEdge("G", "H", 10);
 
-        assertTrue(mapsAreEqual(expected, g3.dijkstra("A")));
+        assertTrue(mapsAreEqual(expected, g3.dijkstra("A", null)));
+    }
+
+
+    @Test
+    public void dijkstraTestEfficiency() {
+        HashMap<String, Integer> expected = new HashMap<>();
+        expected.put("A", 0);
+        expected.put("B", 8);
+        expected.put("C", 2);
+        expected.put("D", 4);
+        expected.put("E", 6);
+        expected.put("F", 5);
+        expected.put("G", 10);
+
+        DijkstraGraph g3 = new DijkstraGraph();
+        g3.addVertex("A");
+        g3.addVertex("B");
+        g3.addVertex("C");
+        g3.addVertex("D");
+        g3.addVertex("E");
+        g3.addVertex("F");
+        g3.addVertex("G");
+        g3.addVertex("H");
+
+        g3.addEdge("A", "B", 10);
+        g3.addEdge("A", "C", 2);
+        g3.addEdge("C", "D", 2);
+        g3.addEdge("D", "E", 2);
+        g3.addEdge("E", "B", 2);
+        g3.addEdge("A", "F", 5);
+        g3.addEdge("F", "G", 5);
+        g3.addEdge("G", "H", 5);
+
+        assertTrue(mapsAreEqual(expected, g3.dijkstra("A", "B")));
     }
 
     public boolean mapsAreEqual(HashMap<String, Integer> mapA, HashMap<String, Integer> mapB) {
